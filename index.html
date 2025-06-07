@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Meu Portfólio de Designer Gráfico</title>
+    <!-- Incluindo Tailwind CSS via CDN -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Incluindo Font Awesome para ícones -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <!-- Importando as fontes Montserrat e Bebas Neue do Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Bebas+Neue&family=Montserrat:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    
+    <style>
+        /* Define a fonte padrão para o corpo do texto como Montserrat e fundo escuro */
+        body {
+            font-family: 'Montserrat', sans-serif;
+            background-color: #000; /* Fundo totalmente preto */
+            color: #e0e0e0; /* Texto claro para contraste */
+        }
+        /* Define a fonte Bebas Neue para títulos específicos e cor clara */
+        h1, h2, h3 {
+            font-family: 'Bebas Neue', sans-serif;
+            color: #fff; /* Títulos brancos para destacar */
+        }
+
+        /* Estilos adicionais para o overlay do carousel */
+        .carousel-overlay {
+            background: linear-gradient(to top, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* Fundo mais escuro para o overlay */
+        }
+
+        /* Estilo para a borda degradê animada no hover do carrossel principal */
+        .carousel-slide-item {
+            position: relative;
+        }
+
+        .carousel-slide-item::before {
+            content: '';
+            position: absolute;
+            inset: -4px; /* Move a borda para fora do elemento */
+            border-radius: 0.75rem; /* Corresponde ao rounded-lg do slide */
+            background: linear-gradient(45deg, #FFD700, #FF6347, #40E0D0); /* Dourado, Tomate, Turquesa (exemplo) */
+            background-size: 200% 200%; /* Para a animação do gradiente */
+            animation: gradientBorder 3s ease infinite; /* Animação suave */
+            z-index: -1; /* Fica por trás do conteúdo do slide */
+            opacity: 0; /* Começa invisível */
+            transition: opacity 0.3s ease-in-out; /* Transição para aparecer/desaparecer */
+        }
+
+        .carousel-slide-item:hover::before {
+            opacity: 1; /* Torna visível no hover */
+        }
+
+        @keyframes gradientBorder {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        /* Estilo para o botão "Faça seu orçamento" com borda degradê animada */
+        .budget-button {
+            position: relative;
+            z-index: 1; /* Garante que o conteúdo do botão fique por cima da borda */
+            background-color: #fbbf24; /* Cor de fundo padrão para o botão (laranja para orçamento) */
+        }
+
+        .budget-button::before {
+            content: '';
+            position: absolute;
+            inset: -3px; /* Espessura da borda degradê */
+            border-radius: 9999px; /* Corresponde ao rounded-full */
+            /* Degradê atualizado com azul mais escuro */
+            background: linear-gradient(45deg, #1A2980, #004e92, #FFD700); /* Azul escuro, Azul mais escuro, Dourado */
+            background-size: 200% 200%;
+            animation: gradientBorder 3s ease infinite;
+            z-index: -1;
+            opacity: 0; /* Começa invisível */
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .budget-button:hover::before {
+            opacity: 1; /* Torna visível no hover */
+        }
+
+        /* Removido o efeito de blur no hover da seção "Sobre Mim & Contato" */
+        
+        /* Esconder barra de rolagem mas permitir rolagem (para carrosséis de projeto) */
+        .scrollbar-hide {
+            -ms-overflow-style: none;  /* IE and Edge */
+            scrollbar-width: none;  /* Firefox */
+        }
+        .scrollbar-hide::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera*/
+        }
+    </style>
+</head>
+<body class="text-gray-200">
+
+    <!-- Cabeçalho - Agora integrado com o fundo preto -->
+    <header class="bg-black text-white p-6 shadow-lg rounded-b-lg">
+        <div class="container mx-auto flex flex-col md:flex-row justify-between items-center">
+            <!-- Seção de Perfil no Cabeçalho -->
+            <div class="flex items-center mb-4 md:mb-0">
+                <img src="https://i.ibb.co/9kxbtHpX/IMAGEMLINDA.jpg" alt="Foto de Perfil de José León" class="w-24 h-24 rounded-full object-cover border-4 border-white shadow-md mr-4">
+                <div>
+                    <h1 class="text-4xl font-extrabold text-white">José León</h1>
+                    <p class="text-xl font-medium text-blue-200">@zetefala</p>
+                </div>
+            </div>
+            <nav>
+                <ul class="flex space-x-4 md:space-x-6">
+                    <li><a href="#portfolio-imagens" class="border border-white text-white px-4 py-2 rounded-md hover:bg-white hover:bg-opacity-20 transition-colors duration-300 text-lg font-medium">Imagens</a></li>
+                    <li><a href="#portfolio-videos" class="border border-white text-white px-4 py-2 rounded-md hover:bg-white hover:bg-opacity-20 transition-colors duration-300 text-lg font-medium">Vídeos</a></li>
+                    <li><a href="#sobre-contato" class="border border-white text-white px-4 py-2 rounded-md hover:bg-white hover:bg-opacity-20 transition-all duration-300 text-lg font-medium">Sobre & Contato</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <!-- Seção Hero/Introdução com Carousel de Imagens e Overlay de Conteúdo -->
+    <section class="relative py-10 bg-black rounded-lg shadow-md mx-4 mt-8 px-6">
+        <!-- Contêiner do Carousel -->
+        <div id="carousel-container" class="w-full h-64 md:h-96 lg:h-[500px] overflow-hidden rounded-lg">
+            <!-- Faixa do Carousel que desliza -->
+            <div id="carousel-track" class="flex h-full" style="transition: transform 1s ease-in-out;">
+                <!-- Slide 1: IMAGEM E DESCRIÇÃO ATUALIZADAS (1920x1080px) -->
+                <div class="w-full h-full flex-shrink-0 relative carousel-slide-item">
+                    <img src="https://i.ibb.co/zW9HkNjf/a.jpg" alt="Motion Design de Hambúrguer" class="absolute inset-0 w-full h-full object-cover" width="1920" height="1080">
+                    <div class="carousel-overlay absolute inset-x-0 bottom-0 p-6 text-white flex flex-col md:flex-row justify-between items-center">
+                        <div class="text-left mb-4 md:mb-0 md:pr-2"> <!-- pr-2 para reduzir espaçamento -->
+                            <h2 class="text-3xl font-bold mb-2 drop-shadow-md text-white">MOTION DESIGN DE HAMBÚRGUER</h2>
+                            <p class="text-sm md:text-base drop-shadow-sm text-white" style="font-family: 'Montserrat', sans-serif;">Desenvolvi um motion Design de hambúrguer, pensando nos detalhes, seguindo e cuidando de cada etapa do processo criativo para garantir um resultado visualmente apetitoso e dinâmico, culminando em uma peça de impacto. (2022)</p>
+                        </div>
+                        <a href="#portfolio-imagens" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 text-sm whitespace-nowrap" style="font-family: 'Montserrat', sans-serif;">
+                            SAIBA MAIS
+                        </a>
+                    </div>
+                </div>
+                <!-- Slide 2: SUBSTITUA PELA URL DA SUA IMAGEM DE PROJETO (1920x1080px) -->
+                <div class="w-full h-full flex-shrink-0 relative carousel-slide-item">
+                    <img src="https://placehold.co/1920x1080/4B0082/FFFFFF?text=Seu+Projeto+2" alt="Seu Projeto 2" class="absolute inset-0 w-full h-full object-cover" width="1920" height="1080">
+                    <div class="carousel-overlay absolute inset-x-0 bottom-0 p-6 text-white flex flex-col md:flex-row justify-between items-center">
+                         <div class="text-left mb-4 md:mb-0 md:pr-2"> <!-- pr-2 para reduzir espaçamento -->
+                            <h2 class="text-3xl font-bold mb-2 drop-shadow-md text-white">Projeto Criativo 2</h2>
+                            <p class="text-sm md:text-base drop-shadow-sm text-white" style="font-family: 'Montserrat', sans-serif;">Explore a inovação e a funcionalidade neste design moderno e impactante.</p>
+                        </div>
+                        <a href="#portfolio-imagens" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 text-sm whitespace-nowrap" style="font-family: 'Montserrat', sans-serif;">
+                            VER DETALHES
+                        </a>
+                    </div>
+                </div>
+                <!-- Slide 3: SUBSTITUA PELA URL DA SUA IMAGEM DE PROJETO (1920x1080px) -->
+                <div class="w-full h-full flex-shrink-0 relative carousel-slide-item">
+                    <img src="https://placehold.co/1920x1080/FF0000/FFFFFF?text=Seu+Projeto+3" alt="Seu Projeto 3" class="absolute inset-0 w-full h-full object-cover" width="1920" height="1080">
+                    <div class="carousel-overlay absolute inset-x-0 bottom-0 p-6 text-white flex flex-col md:flex-row justify-between items-center">
+                         <div class="text-left mb-4 md:mb-0 md:pr-2"> <!-- pr-2 para reduzir espaçamento -->
+                            <h2 class="text-3xl font-bold mb-2 drop-shadow-md text-white">Design Inovador 3</h2>
+                            <p class="text-sm md:text-base drop-shadow-sm text-white" style="font-family: 'Montserrat', sans-serif;">Uma fusão de arte e tecnologia para resultados visuais surpreendentes.</p>
+                        </div>
+                        <a href="#portfolio-imagens" class="inline-block bg-blue-600 hover:bg-blue-700 text-white font-semibold py-2 px-5 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 text-sm whitespace-nowrap" style="font-family: 'Montserrat', sans-serif;">
+                            SAIBA MAIS
+                        </a>
+                    </div>
+                </div>
+                <!-- Você pode adicionar mais slides aqui, duplicando o bloco div.w-full.h-full.flex-shrink-0.relative e SUBSTITUINDO AS URLs -->
+            </div>
+        </div>
+        <!-- Setas de Navegação do Carrossel Principal -->
+        <button id="carousel-prev" class="absolute left-6 top-1/2 -translate-y-1/2 bg-blue-800 text-white p-2 rounded-full shadow-lg z-20 opacity-80 hover:opacity-100 transition-opacity hidden md:block mx-2"> <!-- Margem adicionada -->
+            <i class="fas fa-chevron-left text-base"></i> <!-- Tamanho reduzido -->
+        </button>
+        <button id="carousel-next" class="absolute right-6 top-1/2 -translate-y-1/2 bg-blue-800 text-white p-2 rounded-full shadow-lg z-20 opacity-80 hover:opacity-100 transition-opacity hidden md:block mx-2"> <!-- Margem adicionada -->
+            <i class="fas fa-chevron-right text-base"></i> <!-- Tamanho reduzido -->
+        </button>
+    </section>
+
+    <!-- Script JavaScript para o Carousel de Imagens da Seção Hero -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselTrack = document.getElementById('carousel-track');
+            const slides = carouselTrack.querySelectorAll(':scope > div');
+            let currentIndex = 0;
+            const intervalTime = 7000; // Tempo para auto-play (7 segundos)
+
+            // Função para atualizar a posição do carrossel
+            function updateCarouselPosition() {
+                const offset = -currentIndex * 100;
+                carouselTrack.style.transform = `translateX(${offset}%)`;
+            }
+
+            // Função para avançar para o próximo slide (auto-play)
+            let autoPlayInterval = setInterval(function() {
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarouselPosition();
+            }, intervalTime);
+
+            // Botão Anterior
+            document.getElementById('carousel-prev').addEventListener('click', function() {
+                clearInterval(autoPlayInterval); // Para o auto-play
+                currentIndex = (currentIndex - 1 + slides.length) % slides.length;
+                updateCarouselPosition();
+                // Reinicia o auto-play após um breve atraso se desejar
+                autoPlayInterval = setInterval(function() {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    updateCarouselPosition();
+                }, intervalTime);
+            });
+
+            // Botão Próximo
+            document.getElementById('carousel-next').addEventListener('click', function() {
+                clearInterval(autoPlayInterval); // Para o auto-play
+                currentIndex = (currentIndex + 1) % slides.length;
+                updateCarouselPosition();
+                // Reinicia o auto-play após um breve atraso se desejar
+                autoPlayInterval = setInterval(function() {
+                    currentIndex = (currentIndex + 1) % slides.length;
+                    updateCarouselPosition();
+                }, intervalTime);
+            });
+        });
+    </script>
+
+    <!-- Seção de Portfólio (Imagens) -->
+    <section id="portfolio-imagens" class="py-16 bg-gray-900 rounded-lg shadow-md mx-4 mt-8 px-6">
+        <div class="container mx-auto">
+            <h3 class="text-4xl font-bold text-white text-center mb-12">CONHECA UM POUCOS SOBRE MEU TRABALHO</h3>
+            <div class="relative"> <!-- Adicionado wrapper para setas e overflow -->
+                <div class="flex overflow-x-scroll scrollbar-hide space-x-4 pb-4" id="image-projects-scroll">
+                    <!-- Exemplo de Item de Portfólio (Imagem 1) - Caixa (1080x1350px) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <img src="https://placehold.co/1080x1350/FF5733/000000?text=Projeto+Marca+1" alt="Design de Marca" class="w-full h-[400px] object-cover" width="1080" height="1350">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-white mb-2">Design de Logotipo "Amanhecer"</h4>
+                            <p class="text-gray-200">Criação de identidade visual completa para uma startup de tecnologia, incluindo logotipo, paleta de cores e tipografia.</p>
+                        </div>
+                    </div>
+                    <!-- Exemplo de Item de Portfólio (Imagem 2) - Caixa (1080x1350px) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <img src="https://placehold.co/1080x1350/33FF57/000000?text=Design+App+UI" alt="UI Design de App" class="w-full h-[400px] object-cover" width="1080" height="1350">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-white mb-2">UI/UX para Aplicativo Móvel</h4>
+                            <p class="text-gray-200">Desenvolvimento da interface do usuário e experiência do usuário para um aplicativo de produtividade.</p>
+                        </div>
+                    </div>
+                    <!-- Exemplo de Item de Portfólio (Imagem 3) - Caixa (1080x1350px) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <img src="https://placehold.co/1080x1350/3357FF/000000?text=Material+Marketing" alt="Material de Marketing" class="w-full h-[400px] object-cover" width="1080" height="1350">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-white mb-2">Campanha de Marketing Digital</h4>
+                            <p class="text-gray-200">Criação de banners, posts para redes sociais e outros materiais gráficos para uma campanha de marketing.</p>
+                        </div>
+                    </div>
+                    <!-- Exemplo de Item de Portfólio (Imagem 4) - Caixa (1080x1350px) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <img src="https://placehold.co/1080x1350/FF33A1/000000?text=Ilustracao+Digital" alt="Ilustração Digital" class="w-full h-[400px] object-cover" width="1080" height="1350">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-white mb-2">Ilustração Digital "Floresta Encantada"</h4>
+                            <p class="text-gray-200">Ilustração digital detalhada criada para capa de livro infantil.</p>
+                        </div>
+                    </div>
+                    <!-- Exemplo de Item de Portfólio (Imagem 5) - Caixa (1080x1350px) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <img src="https://placehold.co/1080x1350/A133FF/000000?text=Editorial+Magazine" alt="Design Editorial" class="w-full h-[400px] object-cover" width="1080" height="1350">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-white mb-2">Design Editorial para Revista</h4>
+                            <p class="text-gray-200">Layout e diagramação de artigos e anúncios para uma revista mensal.</p>
+                        </div>
+                    </div>
+                    <!-- Exemplo de Item de Portfólio (Imagem 6) - Caixa (1080x1350px) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <img src="https://placehold.co/1080x1350/33FFF2/000000?text=Embalagem+Produto" alt="Design de Embalagem" class="w-full h-[400px] object-cover" width="1080" height="1350">
+                        <div class="p-6">
+                            <h4 class="text-2xl font-semibold text-white mb-2">Design de Embalagem Orgânica</h4>
+                            <p class="text-gray-200">Desenvolvimento de conceito e arte para embalagens de produtos orgânicos.</p>
+                        </div>
+                    </div>
+                </div>
+                <!-- Setas de Navegação dos Projetos de Imagem -->
+                <button id="img-carousel-prev" class="absolute left-0 top-1/2 -translate-y-1/2 bg-blue-800 text-white p-2 rounded-full shadow-lg z-20 opacity-80 hover:opacity-100 transition-opacity ml-2">
+                    <i class="fas fa-chevron-left text-base"></i>
+                </button>
+                <button id="img-carousel-next" class="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-800 text-white p-2 rounded-full shadow-lg z-20 opacity-80 hover:opacity-100 transition-opacity mr-2">
+                    <i class="fas fa-chevron-right text-base"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Portfólio (Vídeos) -->
+    <section id="portfolio-videos" class="py-16 bg-gray-900 rounded-lg shadow-md mx-4 mt-8 px-6">
+        <div class="container mx-auto">
+            <h3 class="text-4xl font-bold text-white text-center mb-12">Meus Projetos em Vídeo</h3>
+            <div class="relative"> <!-- Adicionado wrapper para setas e overflow -->
+                <div class="flex overflow-x-scroll scrollbar-hide space-x-4 pb-4" id="video-projects-scroll">
+                    <!-- Exemplo de Vídeo (YouTube Embed 1) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <div class="aspect-w-16 aspect-h-9 relative" style="padding-bottom: 56.25%;">
+                            <iframe class="absolute top-0 left-0 w-full h-full rounded-md"
+                                src="https://www.youtube.com/embed/dQw4w9WgXcQ"
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="2xl font-semibold text-white mb-2">Animação Explicativa para Produto</h4>
+                            <p class="text-gray-200">Vídeo animado criado para explicar as funcionalidades de um novo produto digital.</p>
+                        </div>
+                    </div>
+                    <!-- Exemplo de Vídeo (YouTube Embed 2) -->
+                    <div class="bg-gray-800 rounded-xl shadow-lg overflow-hidden p-4 transform transition-all duration-300 hover:scale-105 hover:shadow-xl flex-shrink-0 w-80">
+                        <div class="aspect-w-16 aspect-h-9 relative" style="padding-bottom: 56.25%;">
+                            <iframe class="absolute top-0 left-0 w-full h-full rounded-md"
+                                src="https://www.youtube.com/embed/o_XVh760224"
+                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                allowfullscreen>
+                            </iframe>
+                        </div>
+                        <div class="p-4">
+                            <h4 class="2xl font-semibold text-white mb-2">Vinheta de Abertura para Canal</h4>
+                            <p class="text-gray-200">Vinheta dinâmica e moderna desenvolvida para a abertura de um canal do YouTube.</p>
+                        </div>
+                    </div>
+                    <!-- Você pode adicionar mais vídeos aqui -->
+                </div>
+                <!-- Setas de Navegação dos Projetos de Vídeo -->
+                <button id="video-carousel-prev" class="absolute left-0 top-1/2 -translate-y-1/2 bg-blue-800 text-white p-2 rounded-full shadow-lg z-20 opacity-80 hover:opacity-100 transition-opacity ml-2">
+                    <i class="fas fa-chevron-left text-base"></i>
+                </button>
+                <button id="video-carousel-next" class="absolute right-0 top-1/2 -translate-y-1/2 bg-blue-800 text-white p-2 rounded-full shadow-lg z-20 opacity-80 hover:opacity-100 transition-opacity mr-2">
+                    <i class="fas fa-chevron-right text-base"></i>
+                </button>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção Sobre Mim e Contato -->
+    <section id="sobre-contato" class="py-16 bg-black rounded-lg shadow-md mx-4 mt-8 px-6">
+        <div class="container mx-auto text-center">
+            <h3 class="text-4xl font-bold text-white mb-8">Sobre Mim & Contato</h3>
+            <div class="relative inline-block">
+                <div class="max-w-4xl mx-auto text-lg text-gray-200 leading-relaxed bg-black bg-opacity-90 p-6 rounded-lg shadow-inner">
+                    <p class="mb-6">
+                        Com mais de nove anos de experiência em Design Gráfico, sou José León, profissional venezuelano que encontrou no Brasil um lar e uma profunda paixão. Ao longo dos meus mais de sete anos de residência no país, tive a oportunidade de colaborar com diversas empresas, consolidando minha bagagem em projetos para segmentos como parques, entretenimento, restaurantes e hotelaria.
+                    </p>
+                    <p class="mb-8">
+                        Entre as marcas com as quais trabalhei, destacam-se Gramado Parks, Snowland e Lugano. Se você tem um projeto em mente ou gostaria de saber mais sobre meu trabalho, sinta-se à vontade para entrar em contato!
+                    </p>
+                </div>
+            </div>
+            <div class="flex flex-col md:flex-row justify-center gap-6 mt-8">
+                <!-- Botão de WhatsApp: SUBSTITUA 'https://wa.me/SEU_NUMERO_AQUI' PELA URL DO SEU WHATSAPP (EX: https://wa.me/5521912345678) -->
+                <a href="https://wa.me/SEU_NUMERO_AQUI" target="_blank" class="inline-block bg-green-500 hover:bg-green-600 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+                    <i class="fab fa-whatsapp mr-2 -mt-0.5"></i>
+                    WhatsApp
+                </a>
+                <!-- Botão "Faça seu orçamento" com degradê animado -->
+                <a href="mailto:mogollonjose7@gmail.com?subject=Orçamento%20via%20Portfólio%20(Landing%20Page)&body=Olá%20José%20León,%0A%0AGostaria%20de%20solicitar%20um%20orçamento%20para...%0A%0AAtenciosamente," target="_blank" class="inline-block text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105 budget-button">
+                    <span style="position:relative; z-index:1;">Faça seu orçamento</span>
+                </a>
+                <!-- Botão de LinkedIn -->
+                <a href="https://www.linkedin.com/in/seu-perfil" target="_blank" class="inline-block bg-purple-800 hover:bg-purple-700 text-white font-semibold py-3 px-6 rounded-full shadow-lg transition-all duration-300 transform hover:scale-105">
+                    <i class="fab fa-linkedin-in mr-2 -mt-0.5"></i>
+                    LinkedIn
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Rodapé -->
+    <footer class="bg-black text-white py-6 mt-8 rounded-t-lg">
+        <div class="container mx-auto text-center text-sm">
+            <p>&copy; 2025 José León. Todos os direitos reservados.</p>
+        </div>
+    </footer>
+
+    <!-- Script JavaScript para os Carrosséis de Projeto -->
+    <script>
+        document.addEventListener('DOMContentLoaded', () => {
+            // Função para configurar a rolagem horizontal com botões
+            function setupProjectCarousel(containerId, prevBtnId, nextBtnId, scrollAmount = 350) {
+                const container = document.getElementById(containerId);
+                const prevBtn = document.getElementById(prevBtnId);
+                const nextBtn = document.getElementById(nextBtnId);
+
+                if (!container || !prevBtn || !nextBtn) {
+                    console.warn(`Um dos elementos para o carrossel ${containerId} não foi encontrado.`);
+                    return;
+                }
+
+                prevBtn.addEventListener('click', () => {
+                    container.scrollBy({
+                        left: -scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+
+                nextBtn.addEventListener('click', () => {
+                    container.scrollBy({
+                        left: scrollAmount,
+                        behavior: 'smooth'
+                    });
+                });
+            }
+
+            // Configura o carrossel de projetos de imagem
+            setupProjectCarousel('image-projects-scroll', 'img-carousel-prev', 'img-carousel-next', 350);
+            
+            // Configura o carrossel de projetos de vídeo
+            setupProjectCarousel('video-projects-scroll', 'video-carousel-prev', 'video-carousel-next', 350);
+        });
+    </script>
+
+</body>
+</html>
